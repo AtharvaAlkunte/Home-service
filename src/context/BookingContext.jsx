@@ -4,7 +4,7 @@ const BookingContext = createContext();
 
 export const useBookings = () => useContext(BookingContext);
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 export const BookingProvider = ({ children }) => {
   const [bookings, setBookings] = useState([]);
@@ -17,8 +17,10 @@ export const BookingProvider = ({ children }) => {
 
   const fetchBookings = async () => {
     try {
+      console.log('Fetching bookings from:', `${API_URL}/bookings`);
       const response = await fetch(`${API_URL}/bookings`);
       const data = await response.json();
+      console.log('Fetched bookings:', data.length);
       setBookings(data);
     } catch (error) {
       console.error('Error fetching bookings:', error);
@@ -29,6 +31,8 @@ export const BookingProvider = ({ children }) => {
 
   const addBooking = async (service, customerDetails) => {
     try {
+      console.log('Sending booking data:', { service, customer: customerDetails });
+      
       const response = await fetch(`${API_URL}/bookings`, {
         method: 'POST',
         headers: {
@@ -41,13 +45,16 @@ export const BookingProvider = ({ children }) => {
         }),
       });
 
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
+
       if (!response.ok) {
-        throw new Error('Failed to create booking');
+        throw new Error(responseData.message || 'Failed to create booking');
       }
 
-      const newBooking = await response.json();
-      setBookings(prev => [newBooking, ...prev]);
-      return newBooking._id;
+      setBookings(prev => [responseData, ...prev]);
+      return responseData._id;
     } catch (error) {
       console.error('Error adding booking:', error);
       throw error;
@@ -65,7 +72,8 @@ export const BookingProvider = ({ children }) => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update booking');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update booking');
       }
 
       const updatedBooking = await response.json();

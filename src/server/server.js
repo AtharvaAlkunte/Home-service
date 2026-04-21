@@ -14,9 +14,21 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+// Middleware - MUST be before routes
+app.use(cors({
+  origin: '*',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Test middleware to verify body parsing
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.path} - Content-Type:`, req.headers['content-type']);
+  next();
+});
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
