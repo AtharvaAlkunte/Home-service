@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node src/server/server.js",
-    "server:dev": "nodemon src/server/server.js"
+    "server:dev": "nodemon src/server/server.js",
+    "start": "node src/server/server.js",
+    "build:all": "npm run build && npm install"
   },
   "dependencies": {
     "cors": "^2.8.6",
