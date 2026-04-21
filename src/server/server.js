@@ -40,6 +40,11 @@ if (process.env.NODE_ENV === 'production') {
   app.get('/{*path}', (req, res) => {
     res.sendFile(path.join(distPath, 'index.html'));
   });
+} else {
+  // Development mode - show API info
+  app.get('/', (req, res) => {
+    res.send('Backend is running 🚀');
+  });
 }
 
 // Start server
