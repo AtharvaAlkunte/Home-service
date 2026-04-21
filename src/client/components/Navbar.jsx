@@ -21,7 +21,7 @@ const Navbar = () => {
                     <Link to="/services" className={location.pathname === '/services' ? 'active' : ''}>Services</Link>
                     <Link to="/my-bookings" className={location.pathname === '/my-bookings' ? 'active' : ''}>My Bookings</Link>
                     <Link to="/safety" className={location.pathname === '/safety' ? 'active' : ''}>Safety</Link>
-                    <Link to="/admin" className={`admin-link ${location.pathname === '/admin' ? 'active' : ''}`}>Admin</Link>
+
 
                     <div className="support-nav-item" style={{ position: 'relative' }}>
                         <span

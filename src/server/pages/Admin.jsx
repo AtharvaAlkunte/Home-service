@@ -66,15 +66,15 @@ const Admin = () => {
                                     </thead>
                                     <tbody>
                                         {filteredBookings.map((booking) => (
-                                            <tr key={booking.id}>
-                                                <td className="id-cell">#{booking.id.slice(-6)}</td>
+                                            <tr key={booking._id}>
+                                                <td className="id-cell">#{booking._id.slice(-6)}</td>
                                                 <td className="service-cell">{booking.service}</td>
                                                 <td className="customer-cell">
                                                     <strong>{booking.customer.name}</strong><br />
                                                     <span className="text-sm text-muted">{booking.customer.phone}</span><br />
                                                     <span className="text-sm text-muted">{booking.customer.address}</span>
                                                 </td>
-                                                <td>{new Date(booking.date).toLocaleDateString()}</td>
+                                                <td>{new Date(booking.bookingDate).toLocaleDateString()}</td>
                                                 <td>
                                                     <span className={`status-badge status-${booking.status.toLowerCase()}`}>
                                                         {booking.status}
@@ -84,7 +84,7 @@ const Admin = () => {
                                                     {booking.status === 'Pending' && (
                                                         <button
                                                             className="btn btn-primary btn-sm action-btn"
-                                                            onClick={() => updateBookingStatus(booking.id, 'Confirmed')}
+                                                            onClick={() => updateBookingStatus(booking._id, 'Confirmed')}
                                                         >
                                                             Confirm
                                                         </button>
@@ -92,7 +92,7 @@ const Admin = () => {
                                                     {booking.status === 'Confirmed' && (
                                                         <button
                                                             className="btn btn-accent btn-sm action-btn"
-                                                            onClick={() => updateBookingStatus(booking.id, 'Completed')}
+                                                            onClick={() => updateBookingStatus(booking._id, 'Completed')}
                                                         >
                                                             Complete
                                                         </button>

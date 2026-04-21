@@ -54,12 +54,6 @@
     color: var(--primary-color);
 }
 
-.navbar-links .admin-link {
-    color: var(--text-muted);
-    font-weight: 400;
-    font-size: 14px;
-}
-
 .shadow-hover:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-1px);

@@ -33,11 +33,11 @@ const MyBookings = () => {
                     </div>
                     <h3 style={{ margin: '0 0 8px 0', fontSize: '20px' }}>{booking.service}</h3>
                     <p style={{ margin: 0, color: 'var(--text-muted)' }}>
-                        Booked on {new Date(booking.date).toLocaleDateString()}
+                        Booked on {new Date(booking.bookingDate).toLocaleDateString()}
                     </p>
                 </div>
                 <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontWeight: '500' }}>#{booking.id.slice(-6)}</div>
+                    <div style={{ fontWeight: '500' }}>#{booking._id.slice(-6)}</div>
                     <p style={{ margin: '4px 0 0 0', color: 'var(--text-muted)', fontSize: '14px' }}>
                         {booking.customer.address}
                     </p>
@@ -56,7 +56,7 @@ const MyBookings = () => {
                     {currentBookings.length === 0 ? (
                         <p style={{ color: 'var(--text-muted)' }}>You have no ongoing bookings.</p>
                     ) : (
-                        currentBookings.map(b => <BookingHistoryCard key={b.id} booking={b} />)
+                        currentBookings.map(b => <BookingHistoryCard key={b._id} booking={b} />)
                     )}
                 </div>
 
@@ -65,7 +65,7 @@ const MyBookings = () => {
                     {pastBookings.length === 0 ? (
                         <p style={{ color: 'var(--text-muted)' }}>No completed bookings yet.</p>
                     ) : (
-                        pastBookings.map(b => <BookingHistoryCard key={b.id} booking={b} />)
+                        pastBookings.map(b => <BookingHistoryCard key={b._id} booking={b} />)
                     )}
                 </div>
             </div>
